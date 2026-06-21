@@ -1,69 +1,270 @@
-.home {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+/* Подключить шрифт в index.html:
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
+*/
+
+:root {
+  --void: #060708;
+  --frost: #aebcc4;
+  --bone: #e4e1d8;
+  --blood: #5c1014;
+  --blood-bright: #7a1a1e;
 }
 
-.home__hero {
-  text-align: center;
-  padding: 60px 20px;
-}
+* { box-sizing: border-box; }
 
-.home__title {
-  font-size: 48px;
-  color: var(--text-color);
-  margin-bottom: 16px;
-}
-
-.home__subtitle {
-  font-size: 18px;
-  color: var(--text-color);
-  opacity: 0.8;
-  margin-bottom: 32px;
-}
-
-.home__cta {
-  padding: 12px 32px;
-  font-size: 16px;
-  font-weight: 600;
-  color: white;
-  background-color: var(--primary-color);
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.home__cta:hover {
-  background-color: #0056b3;
-}
-
-.home__features {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 24px;
+/* === HERO: контейнер === */
+.hero {
+  position: relative;
   width: 100%;
-  margin-top: 40px;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--void);
 }
 
-.home__feature-card {
-  padding: 24px;
-  border-radius: 8px;
-  border: 1px solid #e0e0e0;
-  text-align: center;
+/* === ВИДЕО: играет один раз, потом плавно тает === */
+.hero_video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  z-index: 0;
+  transition: opacity 1.4s ease;
 }
 
-.home__feature-title {
-  font-size: 20px;
-  color: var(--text-color);
-  margin-bottom: 8px;
+.hero_video.is-hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
-.home__feature-text {
+/* === ФОНОВАЯ КАРТИНКА: скрыта, пока видео играет; проявляется после === */
+.hero_bg_image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+.hero_bg_image.is-visible {
+  opacity: 1;
+}
+
+.hero_overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(ellipse 90% 80% at 50% 45%, rgba(6, 7, 8, 0.3) 0%, rgba(6, 7, 8, 0.85) 100%);
+  pointer-events: none;
+}
+
+.top_panel {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 20px 40px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent);
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.top_panel_links {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 30px;
+}
+
+.top_panel_links li {
+  position: relative;
+}
+
+.top_panel_links li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--frost);
+  opacity: 0.35;
+}
+
+.top_panel_links a {
+  position: relative;
+  color: var(--frost);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.75;
+  transition: opacity 0.4s ease, color 0.4s ease;
+}
+
+.top_panel_links a::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 1px;
+  background: var(--blood-bright);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.top_panel_links a:hover {
+  color: var(--bone);
+  opacity: 1;
+}
+
+.top_panel_links a:hover::before {
+  transform: scaleX(1);
+}
+
+.buy_button {
+  position: relative;
+  z-index: 2;
+  background-color: transparent;
+  border: 1px solid var(--blood-bright);
+  padding: 11px 30px;
+  overflow: hidden;
+}
+
+.buy_button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--blood);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+  z-index: 0;
+}
+
+.buy_button a {
+  position: relative;
+  z-index: 1;
+  color: var(--frost);
+  text-decoration: none;
   font-size: 14px;
-  color: var(--text-color);
-  opacity: 0.7;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-family: 'Cormorant Garamond', serif;
+  transition: color 0.4s ease;
+}
+
+.buy_button:hover {
+  border-color: var(--bone);
+}
+
+.buy_button:hover::before {
+  transform: scaleX(1);
+}
+
+.buy_button:hover a {
+  color: var(--bone);
+}
+
+@media (max-width: 768px) {
+  .top_panel {
+    padding: 20px 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .top_panel_links {
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+
+  .top_panel_links a {
+    font-size: 12px;
+  }
+}
+
+/* === ЛОГОТИП: скрыт, пока видео играет; проявляется из расфокуса
+   только после .is-revealed (добавляется по onEnded видео) === */
+.logo_stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tiny_bunny_logo {
+  width: min(58vw, 820px);
+  height: auto;
+  opacity: 0;
+  transform: scale(1.05);
+  filter: blur(14px);
+}
+
+.tiny_bunny_logo.is-revealed {
+  animation: bunny_emerge 2.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes bunny_emerge {
+  0% {
+    opacity: 0;
+    transform: scale(1.06);
+    filter: blur(16px) drop-shadow(0 0 0 rgba(180, 200, 220, 0));
+  }
+  55% {
+    opacity: 1;
+    filter: blur(2px) drop-shadow(0 0 30px rgba(180, 200, 220, 0.12));
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter:
+      blur(0)
+      drop-shadow(0 0 40px rgba(180, 200, 220, 0.18))
+      drop-shadow(0 0 90px rgba(90, 110, 140, 0.12))
+      drop-shadow(0 4px 14px rgba(0, 0, 0, 0.85));
+  }
+}
+
+
+
+@media (prefers-reduced-motion: reduce) {
+  .tiny_bunny_logo,
+  .hero_video,
+  .hero_bg_image {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .tiny_bunny_logo {
+    width: min(82vw, 480px);
+  }
 }
