@@ -1,6 +1,5 @@
-/* Подключить шрифт в index.html:
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
+/* index.html:
+   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 */
 
 :root {
@@ -11,29 +10,18 @@
   --blood-bright: #7a1a1e;
 }
 
-* { box-sizing: border-box; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* === HERO: контейнер === */
-.hero {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  background: var(--void);
-}
-
-/* === ВИДЕО: играет один раз, потом плавно тает === */
+/* =============================================
+   ФИКСИРОВАННЫЙ ФОН — за всей страницей,
+   не двигается при скролле никогда
+   ============================================= */
 .hero_video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  transform: translate(-50%, -50%);
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   object-fit: cover;
-  z-index: 0;
+  z-index: -1;
   transition: opacity 1.4s ease;
 }
 
@@ -42,13 +30,13 @@
   pointer-events: none;
 }
 
-/* === ФОНОВАЯ КАРТИНКА: скрыта, пока видео играет; проявляется после === */
 .hero_bg_image {
-  position: absolute;
-  inset: 0;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   background-size: cover;
   background-position: center;
-  z-index: 0;
+  z-index: -1;
   opacity: 0;
   transition: opacity 2s ease;
 }
@@ -57,50 +45,36 @@
   opacity: 1;
 }
 
-.hero_overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background:
-    radial-gradient(ellipse 90% 80% at 50% 45%, rgba(6, 7, 8, 0.3) 0%, rgba(6, 7, 8, 0.85) 100%);
-  pointer-events: none;
-}
-
+/* =============================================
+   НАВИГАЦИЯ — фиксированная сверху, всегда видна
+   ============================================= */
 .top_panel {
-  position: relative;
-  z-index: 3;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 32px;
   padding: 20px 40px;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent);
-  width: 100%;
-  box-sizing: border-box;
-  font-family: 'Cormorant Garamond', serif;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);
 }
 
 .top_panel_links {
   display: flex;
   align-items: center;
   list-style: none;
-  margin: 0;
-  padding: 0;
   gap: 30px;
 }
 
-.top_panel_links li {
-  position: relative;
-}
+.top_panel_links li { position: relative; }
 
 .top_panel_links li:not(:last-child)::after {
   content: '';
   position: absolute;
-  right: -16px;
-  top: 50%;
+  right: -16px; top: 50%;
   transform: translateY(-50%);
-  width: 3px;
-  height: 3px;
+  width: 3px; height: 3px;
   border-radius: 50%;
   background: var(--frost);
   opacity: 0.35;
@@ -108,6 +82,7 @@
 
 .top_panel_links a {
   position: relative;
+  font-family: 'Cinzel', serif;
   color: var(--frost);
   text-decoration: none;
   font-size: 15px;
@@ -121,9 +96,7 @@
 .top_panel_links a::before {
   content: '';
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -6px;
+  left: 0; right: 0; bottom: -6px;
   height: 1px;
   background: var(--blood-bright);
   transform: scaleX(0);
@@ -131,18 +104,11 @@
   transition: transform 0.4s ease;
 }
 
-.top_panel_links a:hover {
-  color: var(--bone);
-  opacity: 1;
-}
-
-.top_panel_links a:hover::before {
-  transform: scaleX(1);
-}
+.top_panel_links a:hover { color: var(--bone); opacity: 1; }
+.top_panel_links a:hover::before { transform: scaleX(1); }
 
 .buy_button {
   position: relative;
-  z-index: 2;
   background-color: transparent;
   border: 1px solid var(--blood-bright);
   padding: 11px 30px;
@@ -156,60 +122,50 @@
   background: var(--blood);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+  transition: transform 0.45s cubic-bezier(0.65,0,0.35,1);
   z-index: 0;
 }
 
 .buy_button a {
   position: relative;
   z-index: 1;
+  font-family: 'Cinzel', serif;
   color: var(--frost);
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 3px;
   text-transform: uppercase;
-  font-family: 'Cormorant Garamond', serif;
   transition: color 0.4s ease;
 }
 
-.buy_button:hover {
-  border-color: var(--bone);
+.buy_button:hover { border-color: var(--bone); }
+.buy_button:hover::before { transform: scaleX(1); }
+.buy_button:hover a { color: var(--bone); }
+
+/* =============================================
+   HERO — первый экран, высота 100vh
+   Просто контейнер, фон за ним — fixed видео выше
+   ============================================= */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  /* без background, без overflow:hidden — иначе ломает fixed */
 }
 
-.buy_button:hover::before {
-  transform: scaleX(1);
+.hero_overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: transparent;
+  pointer-events: none;
 }
 
-.buy_button:hover a {
-  color: var(--bone);
-}
-
-@media (max-width: 768px) {
-  .top_panel {
-    padding: 20px 24px;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-
-  .top_panel_links {
-    gap: 18px;
-    flex-wrap: wrap;
-  }
-
-  .top_panel_links a {
-    font-size: 12px;
-  }
-}
-
-/* === ЛОГОТИП: скрыт, пока видео играет; проявляется из расфокуса
-   только после .is-revealed (добавляется по onEnded видео) === */
+/* === ЛОГОТИП === */
 .logo_stage {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   z-index: 2;
   display: flex;
   align-items: center;
@@ -225,36 +181,40 @@
 }
 
 .tiny_bunny_logo.is-revealed {
-  animation: bunny_emerge 2.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: bunny_emerge 2.4s cubic-bezier(0.16,1,0.3,1) forwards;
 }
 
 @keyframes bunny_emerge {
-  0% {
-    opacity: 0;
-    transform: scale(1.06);
-    filter: blur(16px) drop-shadow(0 0 0 rgba(180, 200, 220, 0));
-  }
-  55% {
-    opacity: 1;
-    filter: blur(2px) drop-shadow(0 0 30px rgba(180, 200, 220, 0.12));
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-    filter:
-      blur(0)
-      drop-shadow(0 0 40px rgba(180, 200, 220, 0.18))
-      drop-shadow(0 0 90px rgba(90, 110, 140, 0.12))
-      drop-shadow(0 4px 14px rgba(0, 0, 0, 0.85));
-  }
+  0%   { opacity: 0; transform: scale(1.06); filter: blur(16px) drop-shadow(0 0 0 rgba(180,200,220,0)); }
+  55%  { opacity: 1; filter: blur(2px) drop-shadow(0 0 30px rgba(180,200,220,0.12)); }
+  100% { opacity: 1; transform: scale(1);
+         filter: blur(0)
+                 drop-shadow(0 0 40px rgba(180,200,220,0.18))
+                 drop-shadow(0 0 90px rgba(90,110,140,0.12))
+                 drop-shadow(0 4px 14px rgba(0,0,0,0.85)); }
 }
 
+.tagline {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, 5.6vw);
+  z-index: 2;
+  color: var(--frost);
+  font-size: 13px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 300;
+  opacity: 0;
+}
 
+.tagline.is-revealed {
+  animation: fade_in 1.2s ease-out 0.7s forwards;
+}
+
+@keyframes fade_in { to { opacity: 0.55; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .tiny_bunny_logo,
-  .hero_video,
-  .hero_bg_image {
+  .tiny_bunny_logo, .tagline, .hero_video, .hero_bg_image {
     animation: none !important;
     transition: none !important;
     opacity: 1 !important;
@@ -264,7 +224,257 @@
 }
 
 @media (max-width: 768px) {
-  .tiny_bunny_logo {
-    width: min(82vw, 480px);
+  .top_panel { padding: 16px 24px; flex-wrap: wrap; gap: 16px; }
+  .top_panel_links { gap: 18px; flex-wrap: wrap; }
+  .top_panel_links a { font-size: 12px; }
+  .tiny_bunny_logo { width: min(82vw, 480px); }
+}
+
+.about {
+  position: relative;
+  margin: 0 60px;
+  min-height: auto;
+  padding: 60px 10px;
+  opacity: 0;
+  transform: translateY(42px) scale(0.985);
+  filter: blur(14px) saturate(0.72) brightness(0.92);
+  transition:
+    opacity 1s ease,
+    transform 1.15s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 1.1s ease;
+  will-change: opacity, transform, filter;
+}
+
+.about.is-revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0) saturate(1) brightness(1);
+}
+
+.about_visual {
+  position: relative;
+  width: min(100%, 1200px);
+  aspect-ratio: 1200 / 675;
+  margin: 0 auto;
+  overflow: hidden;
+  background: #000;
+  transform: translateY(18px) scale(0.992);
+  opacity: 0;
+  transition:
+    transform 1.15s cubic-bezier(0.16, 1, 0.3, 1) 0.08s,
+    opacity 1s ease 0.08s;
+}
+
+.about.is-revealed .about_visual {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.about_image {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about_visual::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(6, 7, 8, 0.88) 0%, rgba(6, 7, 8, 0.72) 24%, rgba(6, 7, 8, 0.18) 54%, rgba(6, 7, 8, 0.56) 100%);
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+.about.is-revealed .about_visual::before {
+  animation: about_fog 1.25s ease-out forwards;
+}
+
+.about_visual_overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(circle at 30% 42%, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0) 28%), linear-gradient(180deg, rgba(6, 7, 8, 0.12) 0%, rgba(6, 7, 8, 0.34) 100%);
+  pointer-events: none;
+  opacity: 0.9;
+  transition: opacity 1s ease 0.12s;
+}
+
+.about.is-revealed .about_visual_overlay {
+  opacity: 1;
+}
+
+.about_content {
+  position: absolute;
+  left: clamp(28px, 5vw, 76px);
+  top: 58%;
+  transform: translateY(calc(-50% + 20px));
+  z-index: 2;
+  width: min(40vw, 520px);
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  opacity: 0;
+  filter: blur(10px);
+  transition:
+    opacity 0.9s ease 0.2s,
+    transform 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s,
+    filter 0.9s ease 0.2s;
+}
+
+.about.is-revealed .about_content {
+  opacity: 1;
+  transform: translateY(-50%);
+  filter: blur(0);
+}
+
+.about_label {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--blood-bright);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.about_label::after {
+  content: '';
+  width: 40px; height: 1px;
+  background: var(--blood-bright);
+  opacity: 0.6;
+}
+
+.about_title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(38px, 4.5vw, 62px);
+  font-weight: 500;
+  font-style: italic;
+  color: var(--bone);
+  line-height: 1.2;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+}
+
+.about_divider {
+  width: 60px; height: 1px;
+  background: linear-gradient(to right, var(--blood-bright), transparent);
+}
+
+.about_text {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.about_text p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(14px, 1.25vw, 17px);
+  font-weight: 400;
+  color: var(--frost);
+  line-height: 1.6;
+  opacity: 0.85;
+  max-width: 62ch;
+  padding-bottom: 10px;
+}
+
+.about_text p:first-child {
+  font-weight: 500;
+  opacity: 1;
+  color: var(--bone);
+}
+
+@keyframes about_fog {
+  0% {
+    opacity: 0;
+    filter: blur(18px);
+    transform: scale(1.03);
+  }
+  50% {
+    opacity: 0.9;
+    filter: blur(3px);
+  }
+  100% {
+    opacity: 0.9;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+
+.about.is-revealed .about_label,
+.about.is-revealed .about_title,
+.about.is-revealed .about_divider,
+.about.is-revealed .about_text {
+  animation: about_whisper 1s ease-out both;
+}
+
+.about.is-revealed .about_title {
+  animation-delay: 0.08s;
+}
+
+.about.is-revealed .about_divider {
+  animation-delay: 0.16s;
+}
+
+.about.is-revealed .about_text {
+  animation-delay: 0.22s;
+}
+
+@keyframes about_whisper {
+  0% {
+    opacity: 0;
+    transform: translateY(16px) skewX(-1.5deg);
+    text-shadow: 0 0 0 rgba(92, 16, 20, 0);
+    filter: blur(8px);
+  }
+  55% {
+    opacity: 1;
+    transform: translateY(0) skewX(0);
+    filter: blur(1px);
+    text-shadow: 0 0 18px rgba(92, 16, 20, 0.18);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+  }
+}
+
+@media (max-width: 900px) {
+  .about {
+    margin: 0 16px;
+    padding: 24px 0;
+  }
+  .about_visual {
+    width: 100%;
+  }
+  .about_content {
+    left: 18px;
+    right: 18px;
+    width: auto;
+    max-width: 520px;
+  }
+}
+
+@media (max-width: 640px) {
+  .about_visual {
+    width: 100%;
+  }
+
+  .about_content {
+    left: 16px;
+    right: 16px;
+    width: auto;
+    gap: 18px;
+  }
+
+  .about_text p {
+    max-width: none;
+    line-height: 1.65;
   }
 }
