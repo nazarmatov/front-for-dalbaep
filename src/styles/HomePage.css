@@ -255,10 +255,10 @@ html {
   font-style: italic;
   letter-spacing: 1px;
   text-transform: none;
-  color: var(--bone);
+  color:rgba(122, 26, 30, 0.5);
   opacity: 1;
   white-space: nowrap;
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+  text-shadow: 0 4px 20px rgba(119, 15, 18, 0.5);
 }
 
 .steam_badge_icon {
@@ -937,4 +937,181 @@ html {
   .trailer_inner { padding: 40px 0 40px 20px; }
   .trailer_card { flex: 0 0 calc(100vw - 60px); }
   .trailer_progress { width: 90px; }
+}
+
+/* =============================================
+   FOOTER
+   ============================================= */
+
+.site_footer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 36px;
+  padding: 90px 24px 50px;
+  text-align: center;
+}
+
+/* Декоративная линия сверху футера, в стиле trailer_top_line */
+.site_footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(122, 26, 30, 0) 5%,
+    rgba(122, 26, 30, 0.5) 30%,
+    rgba(122, 26, 30, 0.8) 50%,
+    rgba(122, 26, 30, 0.5) 70%,
+    rgba(122, 26, 30, 0) 95%,
+    transparent 100%
+  );
+}
+
+/* === СОЦСЕТИ === */
+.footer_socials {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.footer_social_link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(122, 26, 30, 0.5);
+  color: var(--frost);
+  text-decoration: none;
+  opacity: 0.75;
+  transition:
+    border-color 0.3s ease,
+    color 0.3s ease,
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    background 0.3s ease;
+}
+
+.footer_social_link:hover {
+  opacity: 1;
+  color: var(--bone);
+  border-color: var(--blood-bright);
+  background: rgba(92, 16, 20, 0.25);
+  transform: translateY(-2px);
+}
+
+/* === ЛОГО === */
+.footer_logo_img {
+  width: min(40vw, 320px);
+  height: auto;
+  opacity: 0.92;
+  filter: drop-shadow(0 0 40px rgba(92, 16, 20, 0.3)) drop-shadow(0 4px 24px rgba(0, 0, 0, 0.6));
+}
+
+/* === НИЗ ФУТЕРА === */
+.footer_bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer_copyright {
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  color: var(--frost);
+  opacity: 0.55;
+}
+
+.footer_privacy_link {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-decoration: none;
+  color: var(--frost);
+  opacity: 0.4;
+  position: relative;
+  transition: opacity 0.3s ease, color 0.3s ease;
+}
+
+.footer_privacy_link::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -4px;
+  height: 1px;
+  background: var(--blood-bright);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+}
+
+.footer_privacy_link:hover {
+  opacity: 0.85;
+  color: var(--bone);
+}
+
+.footer_privacy_link:hover::after {
+  transform: scaleX(1);
+}
+
+/* === КНОПКА "НАВЕРХ" === */
+.footer_to_top {
+  position: absolute;
+  right: clamp(20px, 4vw, 48px);
+  bottom: clamp(20px, 4vw, 48px);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(122, 26, 30, 0.5);
+  background: transparent;
+  color: var(--frost);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    border-color 0.3s ease,
+    color 0.3s ease,
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+.footer_to_top:hover {
+  border-color: var(--blood-bright);
+  background: rgba(92, 16, 20, 0.25);
+  color: var(--bone);
+  transform: translateY(-3px);
+}
+
+.footer_to_top_arrow {
+  font-size: 18px;
+  line-height: 1;
+}
+
+@media (max-width: 600px) {
+  .site_footer {
+    padding: 70px 20px 90px;
+    gap: 28px;
+  }
+
+  .footer_social_link {
+    width: 38px;
+    height: 38px;
+  }
+
+  .footer_to_top {
+    position: static;
+    margin-top: 10px;
+  }
 }

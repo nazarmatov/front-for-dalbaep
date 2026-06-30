@@ -282,6 +282,82 @@ function HomePage() {
                 {/* Декоративная линия снизу */}
                 <div className="trailer_bottom_line"></div>
             </section>
+
+            {/* =============================================
+                FOOTER — соцсети, лого, копирайт
+                ============================================= */}
+            <footer className="site_footer">
+                <div className="footer_socials">
+                    <a
+                        href="https://vk.com/bunnyhorror"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="footer_social_link"
+                        aria-label="VK"
+                    >
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                            <path d="M13.162 18.994c.609 0 .858-.406.851-.915-.031-1.917.714-2.949 2.117-1.546 1.539 1.538 1.864 2.461 3.5 2.461h3.476c.792 0 1.198-.396 1.198-.985 0-.642-.913-1.768-3.291-4.21-1.05-1.073-.97-1.069.282-2.701 1.554-2.027 3.659-4.776 1.85-4.776h-3.93c-.402 0-.483.241-.633.608-1.011 2.479-2.91 5.526-3.654 5.034-.781-.516-.434-2.404-.378-5.232.018-.882.115-1.41-.4-1.41h-4.07c-.404 0-.652.299-.65.6.008 1.085-.027 2.067.5 2.78.736.999 1.39 4.27.1 4.726-.91.32-1.95-1.057-3.293-3.4-.18-.318-.27-.563-.616-.564-.378-.001-.616.397-.756.737-.396.967-.668 1.99-.86 3.027-.05.275-.07.526.057.738.144.24.448.323.62.349 1.196.182 2.255.075 2.255 2.7 0 .582-.13.882.42.882h1.305z"/>
+                        </svg>
+                    </a>
+
+                    <a
+                        href="https://www.youtube.com/@Saikono_Joker"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="footer_social_link"
+                        aria-label="YouTube"
+                    >
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.376.55A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136C4.495 20.5 12 20.5 12 20.5s7.505 0 9.376-.55a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.75 15.568V8.432L15.818 12 9.75 15.568z"/>
+                        </svg>
+                    </a>
+
+                    <a
+                        href="https://t.me/TinyBunny_official"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="footer_social_link"
+                        aria-label="Telegram"
+                    >
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                            <path d="M22.046 3.222c-.288-.236-.738-.27-1.297-.097-.595.184-15.683 6.215-16.503 6.543-.762.305-1.473.638-1.473 1.165 0 .375.225.589.847.812.643.232 1.999.659 2.788.876.762.21 1.628.026 2.137-.288l9.07-5.876c.27-.176.516-.07.31.123-.487.452-6.336 5.851-6.99 6.486-.477.462-.39 1.012.013 1.366.452.396 4.027 2.74 4.494 3.073.726.518 1.49.236 1.728-.591.262-.913 2.547-12.236 2.797-13.626.205-1.14-.119-1.717-.921-1.966z"/>
+                        </svg>
+                    </a>
+
+                    <a
+                        href="https://x.com/TinyBunnyVN"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="footer_social_link"
+                        aria-label="X (Twitter)"
+                    >
+                        <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <img
+                    src="/images/tiny_bunny_logo.png"
+                    alt="Tiny Bunny"
+                    className="footer_logo_img"
+                />
+
+                <div className="footer_bottom">
+                    <p className="footer_copyright">
+                        © 2026 Tiny Bunny | Зайчик
+                    </p>
+                    <a href="/privacy-policy" className="footer_privacy_link">Privacy Policy</a>
+                </div>
+
+                <button
+                    className="footer_to_top"
+                    aria-label="Scroll to top"
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                >
+                    <span className="footer_to_top_arrow">&#8593;</span>
+                </button>
+            </footer>
         </>
     );
 }
